@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Habbit Tracker</string>
+    <string name="no_habits_yet">No Habits Yet</string>
+</resources>
