@@ -22,10 +22,10 @@ public class MainActivity extends AppCompatActivity {
         mDbHelper = new HabitDbHelper(this);
 
         writeToDatabase();
-        readFromDatabase();
+        displayCursorData(readFromDatabase());
     }
 
-    private void readFromDatabase() {
+    private Cursor readFromDatabase() {
 
         SQLiteDatabase database = mDbHelper.getReadableDatabase();
 
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
                 HabitContract.HabitEntry.COLUMN_HABIT_FREQUENCY,
                 HabitContract.HabitEntry.COLUMN_HABIT_TYPE};
 
-        Cursor cursor = database.query(
+        return  database.query(
                 HabitContract.HabitEntry.TABLE_NAME,
                 projection,
                 null,
@@ -43,7 +43,9 @@ public class MainActivity extends AppCompatActivity {
                 null,
                 null,
                 null);
+    }
 
+    private void displayCursorData (Cursor cursor) {
         TextView viewHabitTextView = (TextView) findViewById(R.id.view_habit);
 
         try {
@@ -66,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
                 viewHabitTextView.append("\n" + currentID + " - "
                         + currentName + " - "
-                        + currentFrequency + "times per day" + " - "
+                        + currentFrequency + " times per day" + " - "
                         + currentType);
             }
         } finally {
